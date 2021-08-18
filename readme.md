@@ -66,6 +66,8 @@ implement three main classes - 「SQLFetch, SQLAnalyze, Autocompleter」 describ
 #### extend of autocomplete feature - introspection
 1. [Complete basic introspection functionality](https://github.com/MariaDB/mariadb_kernel/pull/29/commits/dc288c7706fdc35de968c8fce7d94d5092de3e3f)
 2. [Let introspection show some real data](https://github.com/MariaDB/mariadb_kernel/pull/29/commits/b0215f8ef5bde1503739d90cfa7114507e9bb72f)
+
+   https://user-images.githubusercontent.com/33860799/129879512-3e193b9f-a5ad-4dd2-9ddd-48446c85257a.mp4
 3. [Change setup.py to include data folder and create a new feature about introspection provide column hint](https://github.com/MariaDB/mariadb_kernel/pull/29/commits/febd264e8a0e841aa850b5b84a22a9aea491c67d)
 4. [feature about introspection provide column hint can handle multi values](https://github.com/MariaDB/mariadb_kernel/pull/29/commits/6bbbc123eb8ccef941411189c96a5afb8df87e45#diff-ba5fa5711361ceaf463bbfa8cf4a50b081727b471364ca32c88e8ac35b06c439R102)
 5. [introspect function would provide documentation
