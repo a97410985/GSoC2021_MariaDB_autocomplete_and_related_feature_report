@@ -54,11 +54,15 @@ implement three main classes - 「SQLFetch, SQLAnalyze, Autocompleter」 describ
     
     commit:
     1. [Autocompletion for keyword after user column name](https://github.com/MariaDB/mariadb_kernel/pull/29/commits/9c9a8e6fd718c6cfd323ad0ddec1ec550f28cf44)
+
+   https://user-images.githubusercontent.com/33860799/129868779-644d2294-312d-45da-ae76-f7177e27fac5.mp4
 6. Remove autocompletion suggest column name from a statement like 「insert into table_name values (<tab> 」
     
    commit:
     1. [Remove autocompletion suggest column name from statement like 「insert into table_name values (<tab> 」](https://github.com/MariaDB/mariadb_kernel/pull/29/commits/baaad7cb10532ab80a167a4f15b662557141d36f)
     2. [fix the bug for 【Remove autocompletion suggest column name from statement like 「insert into table_name values (<tab> 」】](https://github.com/MariaDB/mariadb_kernel/pull/29/commits/635a90e0df613ebca0e0045889a4701d94df4f77)
+   
+   https://user-images.githubusercontent.com/33860799/129869785-ff397de0-c87d-43e7-bc9f-466a1fb6d388.mp4
 #### extend of autocomplete feature - introspection
 1. [Complete basic introspection functionality](https://github.com/MariaDB/mariadb_kernel/pull/29/commits/dc288c7706fdc35de968c8fce7d94d5092de3e3f)
 2. [Let introspection show some real data](https://github.com/MariaDB/mariadb_kernel/pull/29/commits/b0215f8ef5bde1503739d90cfa7114507e9bb72f)
