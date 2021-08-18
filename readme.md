@@ -21,7 +21,7 @@ implement three main classes - 「SQLFetch, SQLAnalyze, Autocompleter」 describ
     2. [Merge branch 'async_refresh' into integrated_with_mycli](https://github.com/MariaDB/mariadb_kernel/pull/29/commits/05f62b39140fb5de6d150c407d7d69615d38c703)
 
 #### enhancement of mycli
-1. can set the keyword and function list and would automatically fetch the lastest keyword and function list from new information_schema tables that work in my GSoC([link](https://github.com/MariaDB/server/commit/768c51880a5aa6d25d4c0fe7de7a88561ff46422))
+1. can set the keyword and function list and would automatically fetch the lastest keyword and function list from new information_schema tables that work in my GSoC([link](https://github.com/MariaDB/server/commit/768c51880a5aa6d25d4c0fe7de7a88561ff46422)) -
     [commit](https://github.com/MariaDB/mariadb_kernel/pull/29/commits/9a01a4ec0ff7ae5dc0271b7342c16700bfccf1a1)
 2. Database suggestion before 「.」. Ex: 「insert into db_name_to_be_completed.table_name VALUES (...) 」
     commit
@@ -29,10 +29,14 @@ implement three main classes - 「SQLFetch, SQLAnalyze, Autocompleter」 describ
 ](https://github.com/MariaDB/mariadb_kernel/pull/29/commits/8b04cf6f96b87239bf435a899287fa898d9a983a)
     2. [Enhancement of database suggestion before 「.」
 ](https://github.com/MariaDB/mariadb_kernel/pull/29/commits/f673cdcdee885bac4bcc0e27881bc4ab6e6b0ef6)
+   
+   https://user-images.githubusercontent.com/33860799/129856199-be2a40fc-5d51-4539-937a-5ccb4f1c52e8.mp4
 3. add global and session variable suggestions
     commit
     1. [add global and session variable suggestion on completion_engine and update sql_fetch for them](https://github.com/MariaDB/mariadb_kernel/pull/29/commits/ce111a05a744772d7cd3e6a9e42acc6c9870cb2c)
     2. [Add global and session variable suggestions and fix some problem](https://github.com/MariaDB/mariadb_kernel/pull/29/commits/1984d90b1247b0eb325f76dfc5a3f7e93ca71eae)
+
+   https://user-images.githubusercontent.com/33860799/129861325-a1f04cf6-c8ee-43b4-96b5-b836123bb0b2.mp4
 4. enhancement of database suggestions
     commit
     1. [Add column suggest for system table like mysql.user. And fix the problem like 「select user, `<tab>` from mysql.user;」 would get a user list](https://github.com/MariaDB/mariadb_kernel/pull/29/commits/4430709f81d77a0ea6427e9bbd03fd40807415d7)
