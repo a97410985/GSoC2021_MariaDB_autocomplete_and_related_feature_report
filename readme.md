@@ -24,6 +24,7 @@ implement three main classes - 「SQLFetch, SQLAnalyze, Autocompleter」 describ
 1. can set the keyword and function list and would automatically fetch the lastest keyword and function list from new information_schema tables that work in my GSoC([link](https://github.com/MariaDB/server/commit/768c51880a5aa6d25d4c0fe7de7a88561ff46422)) -
     [commit](https://github.com/MariaDB/mariadb_kernel/pull/29/commits/9a01a4ec0ff7ae5dc0271b7342c16700bfccf1a1)
 2. Database suggestion before 「.」. Ex: 「insert into db_name_to_be_completed.table_name VALUES (...) 」
+    
     commit
     1. [Database suggestion before .table_name
 ](https://github.com/MariaDB/mariadb_kernel/pull/29/commits/8b04cf6f96b87239bf435a899287fa898d9a983a)
@@ -32,22 +33,30 @@ implement three main classes - 「SQLFetch, SQLAnalyze, Autocompleter」 describ
    
    https://user-images.githubusercontent.com/33860799/129856199-be2a40fc-5d51-4539-937a-5ccb4f1c52e8.mp4
 3. add global and session variable suggestions
+    
     commit
     1. [add global and session variable suggestion on completion_engine and update sql_fetch for them](https://github.com/MariaDB/mariadb_kernel/pull/29/commits/ce111a05a744772d7cd3e6a9e42acc6c9870cb2c)
     2. [Add global and session variable suggestions and fix some problem](https://github.com/MariaDB/mariadb_kernel/pull/29/commits/1984d90b1247b0eb325f76dfc5a3f7e93ca71eae)
 
    https://user-images.githubusercontent.com/33860799/129861325-a1f04cf6-c8ee-43b4-96b5-b836123bb0b2.mp4
 4. enhancement of database suggestions
+    
     commit
     1. [Add column suggest for system table like mysql.user. And fix the problem like 「select user, `<tab>` from mysql.user;」 would get a user list](https://github.com/MariaDB/mariadb_kernel/pull/29/commits/4430709f81d77a0ea6427e9bbd03fd40807415d7)
     2. [Autocompletion about database_name.table_name_to_be_completed could suggest the table not in currently seleted database](https://github.com/MariaDB/mariadb_kernel/pull/29/commits/2831635f7db6ee6b19bd4f9edde6f917a9e7aa38)
     3. [Autocompletion for database in select, insert into, ... , like statement
 ](https://github.com/MariaDB/mariadb_kernel/pull/29/commits/58ba70d856eef31d18492d7deb3919cebd0d384f)
+
+   https://user-images.githubusercontent.com/33860799/129866591-051b761b-5ba8-4da2-9d7e-073671c5218d.mp4
+   
+   https://user-images.githubusercontent.com/33860799/129867223-6e2bcd07-3dfd-4175-bb88-ca3d9a3b4b26.mp4
 5. fix some bugs related to the name `user` is the column name and keyword
-    commits:
+    
+    commit:
     1. [Autocompletion for keyword after user column name](https://github.com/MariaDB/mariadb_kernel/pull/29/commits/9c9a8e6fd718c6cfd323ad0ddec1ec550f28cf44)
 6. Remove autocompletion suggest column name from a statement like 「insert into table_name values (<tab> 」
-    commits:
+    
+   commit:
     1. [Remove autocompletion suggest column name from statement like 「insert into table_name values (<tab> 」](https://github.com/MariaDB/mariadb_kernel/pull/29/commits/baaad7cb10532ab80a167a4f15b662557141d36f)
     2. [fix the bug for 【Remove autocompletion suggest column name from statement like 「insert into table_name values (<tab> 」】](https://github.com/MariaDB/mariadb_kernel/pull/29/commits/635a90e0df613ebca0e0045889a4701d94df4f77)
 #### extend of autocomplete feature - introspection
