@@ -13,7 +13,8 @@ implement three main classes - 「SQLFetch, SQLAnalyze, Autocompleter」 describ
 4. [fix not select any database error in SQLFetch](https://github.com/MariaDB/mariadb_kernel/pull/29/commits/9884b711828042269054fb3ba7d1e0d20f331c23)
 5. [Refactor for SQL command position and SQLFetch.Refresher's arguments passing](https://github.com/MariaDB/mariadb_kernel/pull/29/commits/1dac33b7169956eea8ee494eff9cc419c69e63b8)
 6. [let autocompletion can show the type of completion in the list](https://github.com/MariaDB/mariadb_kernel/pull/29/commits/9141aee44cec373048f491e0dfe6975d5d9550fd)
-    ![show type of completion demo](https://user-images.githubusercontent.com/33860799/129854594-c5d235eb-d694-4b0c-8222-a85dce0b13a7.mp4)
+   
+   https://user-images.githubusercontent.com/33860799/129854594-c5d235eb-d694-4b0c-8222-a85dce0b13a7.mp4
 7. asyc refresh autocompleter's data
     1. [create basic async refresh by thread
 ](https://github.com/MariaDB/mariadb_kernel/pull/29/commits/178fc979a670e28e8171e33df9c00e6deca8b5a2)
