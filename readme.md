@@ -70,8 +70,12 @@ implement three main classes - 「SQLFetch, SQLAnalyze, Autocompleter」 describ
    https://user-images.githubusercontent.com/33860799/129879512-3e193b9f-a5ad-4dd2-9ddd-48446c85257a.mp4
 3. [Change setup.py to include data folder and create a new feature about introspection provide column hint](https://github.com/MariaDB/mariadb_kernel/pull/29/commits/febd264e8a0e841aa850b5b84a22a9aea491c67d)
 4. [feature about introspection provide column hint can handle multi values](https://github.com/MariaDB/mariadb_kernel/pull/29/commits/6bbbc123eb8ccef941411189c96a5afb8df87e45#diff-ba5fa5711361ceaf463bbfa8cf4a50b081727b471364ca32c88e8ac35b06c439R102)
+   
+   https://user-images.githubusercontent.com/33860799/130049893-64b3d5ef-3e23-473d-8b75-13e82846b2c1.mp4
 5. [introspect function would provide documentation
 ](https://github.com/MariaDB/mariadb_kernel/pull/29/commits/c3dc53100c518b9bd70792163c87a2fbadf98ba7)
+   
+   https://user-images.githubusercontent.com/33860799/130050023-29f73651-b269-4ed1-b58b-2541cff1be09.mp4
 6. [introsptect user keyword would pop up user list
 ](https://github.com/MariaDB/mariadb_kernel/pull/29/commits/5f92f1824908cbba011c39dbf3ec7601f8d82df5)
 7. [Merge branch use_mycli_for_introspection('febd264e8a0e841aa850b5b84a22a9aea491c67d') into integrated_with_mycli](https://github.com/MariaDB/mariadb_kernel/pull/29/commits/ddd84aea11645f8d2996d64758d333deb72ccd6e)
