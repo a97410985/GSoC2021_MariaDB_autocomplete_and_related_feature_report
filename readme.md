@@ -87,6 +87,16 @@ implement three main classes - 「SQLFetch, SQLAnalyze, Autocompleter」 describ
    
    https://user-images.githubusercontent.com/33860799/129869785-ff397de0-c87d-43e7-bc9f-466a1fb6d388.mp4
 #### extend of autocomplete feature - introspection
+According to a different type of word show different info. like below table:
+type | show Infos
+-- | --
+database | show the tables in this database
+table        | show its schema, and partial table rows
+column    | show the data type it stores, and some data in this column
+function  | show its documentation(has syntax, description, example sections)
+user         |  show user list.   
+
+
 1. [Complete basic introspection functionality](https://github.com/MariaDB/mariadb_kernel/pull/29/commits/dc288c7706fdc35de968c8fce7d94d5092de3e3f)
 2. [Let introspection show some real data](https://github.com/MariaDB/mariadb_kernel/pull/29/commits/b0215f8ef5bde1503739d90cfa7114507e9bb72f)
 
