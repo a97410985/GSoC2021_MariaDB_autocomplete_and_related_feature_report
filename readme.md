@@ -218,18 +218,18 @@ sqlprase mistake 【t1 (a, b, c)】 「table name and column list」 as function
 And for the second, if the grammar feed into bison is complete and no ambiguity, then the parse result would not be wrong. Can make sure it cover the whole grammar and nearly no error. And the mariadb is maintained the 「sql/sql_yacc.yy」, it can be used and can has the same parser with the mariadb sql database. And we can easily annotated something into parsing process and get the information that help a lot in autocompletion.
 
 ## my autocompletion engine
-![the_design_of_my_autocompletion_engine](data\the_design_of_my_autocompletion_engine.png)
+![the_design_of_my_autocompletion_engine](data/the_design_of_my_autocompletion_engine.png)
 there are three main component lexer_caller, bison_xml_reader and autocompletion_engine.
 Because our project is using python but bison generated parser and lexer is written in C. So I need to build a .so file for lexer and create a lexer_caller to load the library file and execute it get a list of tokens.
 
 And I would need to annotated info at parsing process. So I create a bison_xml_reader read the xml report get the LR1 parsing need info like goto_table and action_table. So I can parse on them.
 
-![myautocomplete_engine_internal1](data\myautocomplete_engine_internal1.png)
+![myautocomplete_engine_internal1](data/myautocomplete_engine_internal1.png)
 If we parse the statement at the left, then we will get the result at the right.
 And in this example, I only show the name token.
 So I can base on the token matched rule number and matched index to deduce it should be database, table or function, and so on.
 Such as the word Customers. It match on rule 45 - table_factor. And in this rule first token should be table, so the word Customers is table name.
 
-![myautocomplete_engine_internal2](data\myautocomplete_engine_internal2.png)
+![myautocomplete_engine_internal2](data/myautocomplete_engine_internal2.png)
 And the autocompletion is not only parsed the complete SQL statement. It needs to predicate the next word is what. With the info in the bison report, it would be easy.
 But this autocompletion is still in early stage. So it is not adopted in this project
