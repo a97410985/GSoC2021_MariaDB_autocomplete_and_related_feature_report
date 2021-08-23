@@ -5,6 +5,8 @@ This project's autocompletion is based on popular python packages - mycli. And d
 ## the presentation video
 [![Everything Is AWESOME](https://yt-embed.herokuapp.com/embed?v=2g67aC0Tqfk)](https://www.youtube.com/watch?v=2g67aC0Tqfk "Everything Is AWESOME")
 
+[the presentation's google slides' link](https://docs.google.com/presentation/d/1haQVxONRbaqs4BmnFUyhji9VCy-Ndo8ECv6tFk5wz1E/edit#slide=id.p)
+
 ## The design of this project
 ![mariadb_kernel_autocompletion_feature_design](data/mariadb_kernel_autocompletion_feature_design.png)
 
