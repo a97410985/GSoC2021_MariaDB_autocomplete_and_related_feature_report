@@ -149,16 +149,16 @@ we need suggest type after min(
 the token before the cursor is left parenthesis
 So we need to consider five cases list below:
 1. In Where statement
-=> look at more cases~
+`=>` look at more cases~
 2. After Using - tbl1 INNER JOIN tbl2 USING (col1, col2)
-=> Suggest columns/functions
+`=>` Suggest columns/functions
 3. Subquery expression like "select … from (“
-=> Suggest keyword
+`=>` Suggest keyword
 4. show statement like “show “
-=> Suggest the list of special 
+`=>` Suggest the list of special 
 5. keyword appear after show
 function call like “select min(“
-=> Suggest column
+`=>` Suggest column
 
 these five case is under the condition is top level’s last token is punctuation - left parenthesis. And have their own conditions.
 **First**, check the top level’s last token is where instance, then look at more cases. Here not discuss that.
