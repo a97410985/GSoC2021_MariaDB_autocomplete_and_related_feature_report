@@ -162,10 +162,10 @@ So we need to consider five cases list below:
 function call like “select min(“
 `=>` Suggest column
 
-these five case is under the condition is top level’s last token is punctuation - left parenthesis. And have their own conditions.
+these five case is under the condition is top level’s `last token before the text cursor` is punctuation - left parenthesis. And have their own conditions.
 **First**, check the top level’s last token is where instance, then look at more cases. Here not discuss that.
-**Second**, check the top level’s token that previous last token, check it is using word or not. If it is, suggest column
-**Third**, check the top leve’s first token is select, and the last word is just left parenthesis. If it is, suggest keyword. But in this example, last word would be min(, so it is not belong this case.
+**Second**, check the top level’s `second last token before the text cursor`, check it is `using word` or not. If it is, suggest column
+**Third**, check the top level’s first token is select, and the `last token before the text cursor` is start with left parenthesis. If it is, suggest keyword. But in this example, last word would be min(, so it is not belong this case.
 **Fourth**, check the top level’s first token is show word, if it is, suggest a list of special keyword appear after show
 **Fifiveth**, is not above cases, it would be in simple function call, so suggest column
 
