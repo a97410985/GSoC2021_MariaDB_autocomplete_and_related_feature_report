@@ -1,6 +1,27 @@
-all my GSoC works are in [pull request](https://github.com/MariaDB/mariadb_kernel/pull/29/commits) and [one commit](https://github.com/MariaDB/server/commit/768c51880a5aa6d25d4c0fe7de7a88561ff46422)
+all my GSoC works are in [pull request](https://github.com/MariaDB/mariadb_kernel/pull/29/commits)(**in review**) and [one commit](https://github.com/MariaDB/server/commit/768c51880a5aa6d25d4c0fe7de7a88561ff46422)(**merged**)
 
 This project's autocompletion is based on popular python packages - mycli. And do some enhancement, bug fix, and extend its functionality.
+
+## the presentation video
+[![Everything Is AWESOME](https://yt-embed.herokuapp.com/embed?v=2g67aC0Tqfk)](https://www.youtube.com/watch?v=2g67aC0Tqfk "Everything Is AWESOME")
+
+## The desigon of this project
+![mariadb_kernel_autocompletion_feature_design](data\mariadb_kernel_autocompletion_feature_design.png)
+**There are four components**. 
+`SQLAnalyze` is responsible for analyzing the SQL statement and providing a function that inputs the SQL statement and text cursor's position, then gets the suggestion.
+
+`SQLFetch` is responsible for providing convenient function fetching data. Such as provide a `databases` function that would return a list of database names that are current DB's databases.
+
+`Autocompleter` is responsible for simplifying the use of `SQLAnalyze` and `SQLFetch`. It would provide two functions. One is a refresh that can refresh the DB's info. The refresh way can decide to be sync or async, and another is get_suggestions. It would get suggestions based on text and cursor position.
+
+The `introspector` is responsible for providing a `inspect` function that can given text and cursor position return the HTML that would be shown to users.
+
+**The relationship of these four components**
+
+`Autocompleter` uses `SQLFetch` to update the data inside `SQLAnalyze`. Such as update dbmetadata. So in `SQLAnalyze`, when need to suggest tables in the currently selected database. It can find in dbmetadata. 
+
+`Introspector` uses `autocompleter` because it needs to shares the data that `autocompleter's SQLAnalyze` has.  And use `autocompleter’s SQLFetch` to get some HTML(such as when inspecting table word, need to get the table's schema HTML for showing to the user)
+
 
 ## the list of my work(not list trivial commits)
 
@@ -21,7 +42,8 @@ implement three main classes - 「SQLFetch, SQLAnalyze, Autocompleter」 describ
     2. [Merge branch 'async_refresh' into integrated_with_mycli](https://github.com/MariaDB/mariadb_kernel/pull/29/commits/05f62b39140fb5de6d150c407d7d69615d38c703)
 
 #### enhancement of mycli
-1. can set the keyword and function list and would automatically fetch the lastest keyword and function list from new information_schema tables that work in my GSoC([link](https://github.com/MariaDB/server/commit/768c51880a5aa6d25d4c0fe7de7a88561ff46422)) -
+1. can set the keyword and function list and would automatically fetch the lastest keyword and function list from new information_schema tables that work in my GSoC([link](https://github.com/MariaDB/server/commit/768c51880a5aa6d25d4c0fe7de7a88561ff46422))
+
     [commit](https://github.com/MariaDB/mariadb_kernel/pull/29/commits/9a01a4ec0ff7ae5dc0271b7342c16700bfccf1a1)
 2. Database suggestion before 「.」. Ex: 「insert into db_name_to_be_completed.table_name VALUES (...) 」
     
@@ -84,3 +106,100 @@ implement three main classes - 「SQLFetch, SQLAnalyze, Autocompleter」 describ
 #### related to mariadb_kernel
 1. [fix mariadb_client's run_statement courrent problem](https://github.com/MariaDB/mariadb_kernel/pull/29/commits/8abef4f116d0b3c0e899a4141b86312b2d69f2a7)
 2. [Add more testing about mariadb_client concurrent execute run_statement and the multi mariadb_client's selected database sync](https://github.com/MariaDB/mariadb_kernel/pull/29/commits/3523bcdcb2a2697b986e0f3e09e7cc84f2ee7e09)
+
+
+## The difficulty of this project
+This project encounters some tricky problems. In this section, I would discuss them.
+
+First, use the mycli's way to implement introspection is difficult in some situations. Such as column name is same as keyword name. This result in introspection is difficult on mycli way to resolve word to the specific type.
+
+The reason needs to describe the internal of mycli to implement autocompletion.
+mycli parsing base on the python package - sqlparse. And sqlparse have some limitation. Such as, it can't resolve the name into the database, table, column, and so on. 
+
+ex:
+```python
+from sqlparse import parse
+result = parse("select min(col1), col2 from tabl1;")
+result[0]._pprint_tree()
+```
+the code above would get parse tree be printed at below
+<img src="data\sqlparse_parse_tree.png" alt="sqlparse_parse_tree" width="350" height="400">
+`sqlparse` can recognize DML like known this statement is a select statement. And Keyword, Punctuation, Identifier, Identifier List, Function, and so on.
+But it can’t resolve database, column, table, and so on. These would all be Name. Look at the place I mark green color, the token `min` should be function; The token `col1` should be column; The token `col2` should be column; The token `tabl1` should be table
+
+And the mycli look at the parse tree, resolve Name to more specific type, such as database, table, column.
+For example: 
+There are a statement.
+> select min(**col1**), col2 from tabl1;
+
+we need suggest type after min(
+the token before the cursor is left parenthesis
+So we need to consider five cases list below:
+1. In Where statement
+=> look at more cases~
+2. After Using - tbl1 INNER JOIN tbl2 USING (col1, col2)
+=> Suggest columns/functions
+3. Subquery expression like "select … from (“
+=> Suggest keyword
+4. show statement like “show “
+=> Suggest the list of special 
+5. keyword appear after show
+function call like “select min(“
+=> Suggest column
+
+these five case is under the condition is top level’s last token is punctuation - left parenthesis. And have their own conditions.
+**First**, check the top level’s last token is where instance, then look at more cases. Here not discuss that.
+**Second**, check the top level’s token that previous last token, check it is using word or not. If it is, suggest column
+**Third**, check the top leve’s first token is select, and the last word is just left parenthesis. If it is, suggest keyword. But in this example, last word would be min(, so it is not belong this case.
+**Fourth**, check the top level’s first token is show word, if it is, suggest a list of special keyword appear after show
+**Fifiveth**, is not above cases, it would be in simple function call, so suggest column
+
+In conclusion, mycli suggestion is multi options in most scenarios. But introspection needs to resolve to the specific type. There is a way to solve this problem. It is looking at the databases’ info.
+For example:
+for sql statement
+> select **column1** from table1;
+
+and complter.dbmetadata
+```text
+{'tables': {'db1': {
+                     “table1”: [“*”, “column1”]            
+                }
+  }, 
+ 'views': {'db1': {}}, 
+ 'functions': {'db1': {}}}
+```
+
+> `check priority : ` column_hint -> column -> table -> database -> function -> keyword
+
+the suggestion in **column1** would be column, function or keyword or alias.
+we have special resolve order. So first we check it is column or not. We look at dbmetadata’s tables field. Find in current database db1 have table named table1 or not. If exists, then check in that table has column1 or not. In this example. There exists column1. So this word is column. The introspector would get this(point to introspector.get_introspection)
+And it not found, would check the next suggestion type in the priority - function type.
+final the **introspector.get_introspection return :**
+```text
+{'word': 'column1', 'type': 'column',   
+ 'database': 'db1', 'table': 'table1'}
+```
+But there exists a problem if there exists the same name be multiple types. It may resolve to the wrong type.
+
+For example :
+for sql statement:
+```sql
+select min(column1) from table1;
+```
+if table1 has a column named min, and there exists a function named min
+the word 「min 」 would be recognized as a column in the check priority
+
+So I need to do more check on that. In this case would check the next token after cursor is left parenthesis or not. If it is left parenthesis, it would be function.
+
+And the check priority is also important.
+For example:
+there are two priority:
+> check priority 1: column_hint -> column -> table -> database -> function -> keyword
+
+> check priority 2: keyword -> function -> database -> table -> column -> column_hint
+
+if the check priority is the `check priority 1`. Then user word would be resolved to keyword. Because there has a user column in mysql.user and has user keyword. According `check priority 2`.  Function has higher priority than column.
+And in the right check priority, it can solve most of wrong cases. Because mycli the most suggestion redundant types is fucntion and keyword, so their priority is lowest.
+
+
+
