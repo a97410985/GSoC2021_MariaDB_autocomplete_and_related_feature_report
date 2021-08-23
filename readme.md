@@ -6,7 +6,8 @@ This project's autocompletion is based on popular python packages - mycli. And d
 [![Everything Is AWESOME](https://yt-embed.herokuapp.com/embed?v=2g67aC0Tqfk)](https://www.youtube.com/watch?v=2g67aC0Tqfk "Everything Is AWESOME")
 
 ## The desigon of this project
-![mariadb_kernel_autocompletion_feature_design](data\mariadb_kernel_autocompletion_feature_design.png)
+![mariadb_kernel_autocompletion_feature_design](data/mariadb_kernel_autocompletion_feature_design.png)
+
 **There are four components**. 
 `SQLAnalyze` is responsible for analyzing the SQL statement and providing a function that inputs the SQL statement and text cursor's position, then gets the suggestion.
 
@@ -123,7 +124,9 @@ result = parse("select min(col1), col2 from tabl1;")
 result[0]._pprint_tree()
 ```
 the code above would get parse tree be printed at below
+   
 <img src="data\sqlparse_parse_tree.png" alt="sqlparse_parse_tree" width="350" height="400">
+   
 `sqlparse` can recognize DML like known this statement is a select statement. And Keyword, Punctuation, Identifier, Identifier List, Function, and so on.
 But it can’t resolve database, column, table, and so on. These would all be Name. Look at the place I mark green color, the token `min` should be function; The token `col1` should be column; The token `col2` should be column; The token `tabl1` should be table
 
@@ -169,7 +172,7 @@ and complter.dbmetadata
  'functions': {'db1': {}}}
 ```
 
-> `check priority : ` column_hint -> column -> table -> database -> function -> keyword
+> check priority : column_hint -> column -> table -> database -> function -> keyword
 
 the suggestion in **column1** would be column, function or keyword or alias.
 we have special resolve order. So first we check it is column or not. We look at dbmetadata’s tables field. Find in current database db1 have table named table1 or not. If exists, then check in that table has column1 or not. In this example. There exists column1. So this word is column. The introspector would get this(point to introspector.get_introspection)
